@@ -5,6 +5,9 @@ import java.util.Scanner;
 
 public class ShoppingCart {
     private int quantity;
+    private ArrayList<Product> shoppingCart;
+    private Scanner scanner;
+
 
     public ShoppingCart(int quantity) {
         this.quantity = quantity;
@@ -14,13 +17,11 @@ public class ShoppingCart {
         return quantity;
     }
 
+
+
     public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
-
-    public class ShoppingCart {
-        private ArrayList<product> shoppingCart;
-        private Scanner scanner;
 
         public ShoppingCart() {
             shoppingCart = new ArrayList<>();
@@ -28,17 +29,16 @@ public class ShoppingCart {
         }
 
         public void addToCart(Product product) {
-            ShoppingCart.add(product);
-            System.out.println(product.name + " added to the cart.");
+            shoppingCart.add(product);
+            System.out.println(product.getProductName() + " added to the cart.");
         }
 
         public void removeFromCart() {
             System.out.println("Enter the name of the product to remove: ");
             String productName = scanner.nextLine();
             boolean removed = false;
-            
         }
     }
-}
+
 
 
