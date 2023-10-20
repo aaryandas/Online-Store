@@ -70,7 +70,7 @@ public class Product {
     public void searchName(String Name){
 
         for(Product product : productList){
-            if(product )
+            if(productName
         }
 
 
