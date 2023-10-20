@@ -1,6 +1,7 @@
 package org.example;
 
 import java.io.FileInputStream;
+import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -9,22 +10,23 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
 
         try {
-            FileInputStream fis = new FileInputStream("src/main/resources/products.txt");
+            FileInputStream fis = new FileInputStream("src/main/resources/Products.txt");
             Scanner fileInput = new Scanner(fis);
 
             ArrayList<org.example.Product> productList = new ArrayList<>(); // i have not clue why intellej populated org.example.product
 
             System.out.println("Welcome to our Online Store.");
+            boolean isShopping = true;
+
             System.out.println("Please choose an option from the list below: ");
             System.out.println("1) Display Products");
             System.out.println("2) Display Cart");
             System.out.println("3) Exit");
             String userInput = scanner.nextLine();
 
-            boolean isShopping = true;
 
             while (isShopping) {
-                switch (fileInput) { // will need to fix this not sure what to put
+                switch (userInput) { // will need to fix this not sure what to put
                     case 1:
                         if (userInput.equalsIgnoreCase("1")) {
 
@@ -32,7 +34,10 @@ public class Main {
                             while(scanner.hasNextLine()){
                                 input = scanner.nextLine();
                                 System.out.println(input);
+
+                                scanner.close();
                             }
+
 
                             System.out.println("Would you like to search for an item?");
                             String option1 = scanner.nextLine();
@@ -46,6 +51,8 @@ public class Main {
                                 searchDepartment(lookingFor);
                             }
 
+                            FileWriter cartWriter = new FileWriter("src/main/resources/Products.txt", true);
+
                             System.out.println("Would you like to add an item to your cart?");
                             String option2 = scanner.nextLine();
 
@@ -53,7 +60,10 @@ public class Main {
                                 System.out.println("What item would you like to add? ");
                                 String addItem = scanner.nextLine();
 
-                                addItem();
+                                for(org.example.Product product :productList){
+                                    cartWriter.write(product.getProductName() + "|" + product.getPrice() + "|" + product.getDepartment() + "\n");
+                                }
+                                cartWriter.close();
                             }
 
                         } else {
@@ -76,6 +86,7 @@ public class Main {
                             String option4 = scanner.nextLine();
 
                             if(option4.equalsIgnoreCase("yes")){
+
                                 removeItem();
                             }
 
