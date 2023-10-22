@@ -10,10 +10,7 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
 
         try {
-            FileInputStream fis = new FileInputStream("src/main/resources/Products.txt");
-            Scanner fileInput = new Scanner(fis);
-
-            ArrayList<org.example.Product> productList = new ArrayList<>(); // i have not clue why intellej populated org.example.product
+            ArrayList<Product> productList = new ArrayList<>();
 
             System.out.println("Welcome to our Online Store.");
             boolean isShopping = true;
@@ -30,25 +27,14 @@ public class Main {
                     case 1:
                         if (userInput.equalsIgnoreCase("1")) {
 
-                            String input;
-                            while(scanner.hasNextLine()){
-                                input = scanner.nextLine();
-                                System.out.println(input);
-                            }
+                            displayProducts();
 
                             System.out.println("Would you like to search for an item?");
                             String option1 = scanner.nextLine();
 
                             if(option1.equalsIgnoreCase("yes")){
-                                System.out.println("Enter product name, price or department please");
-                                String lookingFor = scanner.nextLine();
-
-                                searchName(lookingFor);
-                                searchPrice(lookingFor); //price is double didn't know if that needed to be changed
-                                searchDepartment(lookingFor);
+                                searchItems(productList);
                             }
-
-                            FileWriter cartWriter = new FileWriter("src/main/resources/Products.txt", true);
 
                             System.out.println("Would you like to add an item to your cart?");
                             String option2 = scanner.nextLine();
@@ -57,12 +43,8 @@ public class Main {
                                 System.out.println("What item would you like to add? ");
                                 String addItem = scanner.nextLine();
 
-                                org.example.Product products = new org.example.Product();
-
-                                for(org.example.Product product :productList){
-                                    cartWriter.write(product.getProductName() + "|" + product.getPrice() + "|" + product.getDepartment() + "\n");
-                                }
-                                cartWriter.close();
+                                addItem();
+                                addToCart();
                             }
 
                         } else {
@@ -80,7 +62,7 @@ public class Main {
                                 checkOut();
 
                                 System.out.println("Here is your receipt: ");
-                                receipt();
+                                printReceipt();
                             }
 
                             System.out.println("Would you like to remove an item from the cart?");
@@ -116,7 +98,52 @@ public class Main {
 
     }
 
-    public static displayCart(){
+    public static void displayProducts(){
+        try{
+            FileInputStream fis = new FileInputStream("src/main/resources/Products.txt");
+            Scanner fileInput = new Scanner(fis);
 
+            String input;
+            while(fileInput.hasNextLine()){
+                input = fileInput.nextLine();
+                System.out.println(input);
+            }
+        }
+        catch(Exception ex){
+            System.out.println("Unable to display item");
+        }
+    }
+
+    static Scanner scanner = new Scanner(System.in);
+    public static void searchItems(ArrayList<Product> productList){
+        System.out.println("Enter product name, price or department please");
+        String lookingFor = scanner.nextLine();
+
+        for(Product p : productList){
+            p.searchName(lookingFor);
+            p.searchPrice(Double.parseDouble(lookingFor)); //price is double didn't know if that needed to be changed
+            p.searchDepartment(lookingFor);
+        }
+
+    }
+
+    public static void addItem(){
+        try{
+            FileWriter cartWriter = new FileWriter("src/main/resources/Products.txt", true);
+            Product product = new Product();
+
+            cartWriter.write(product.getProductName() + "|" + product.getPrice() + "|" + product.getDepartment() + "\n");
+            cartWriter.close();
+        }
+        catch(Exception ex){
+            System.out.println("Unable to add item");
+        }
+    }
+
+    public static void checkOut(){
+    }
+
+    public static void addToCart(){
+        
     }
 }
