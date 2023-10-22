@@ -111,8 +111,12 @@ public class Main {
 
         }
         catch(Exception ex){
-            System.out.println("Let's try again next time . . . .");
+            System.out.println("Please select a valid option");
         }
+
+    }
+
+    public static displayCart(){
 
     }
 }
