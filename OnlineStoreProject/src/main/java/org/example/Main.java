@@ -34,10 +34,7 @@ public class Main {
                             while(scanner.hasNextLine()){
                                 input = scanner.nextLine();
                                 System.out.println(input);
-
-                                scanner.close();
                             }
-
 
                             System.out.println("Would you like to search for an item?");
                             String option1 = scanner.nextLine();
@@ -47,7 +44,7 @@ public class Main {
                                 String lookingFor = scanner.nextLine();
 
                                 searchName(lookingFor);
-                                searchPrice(Double.parseDouble(lookingFor)); //price is double didn't know if that needed to be changed
+                                searchPrice(lookingFor); //price is double didn't know if that needed to be changed
                                 searchDepartment(lookingFor);
                             }
 
@@ -59,6 +56,8 @@ public class Main {
                             if (option2.equalsIgnoreCase("yes")){
                                 System.out.println("What item would you like to add? ");
                                 String addItem = scanner.nextLine();
+
+                                org.example.Product products = new org.example.Product();
 
                                 for(org.example.Product product :productList){
                                     cartWriter.write(product.getProductName() + "|" + product.getPrice() + "|" + product.getDepartment() + "\n");
@@ -78,8 +77,10 @@ public class Main {
                             String option3 = scanner.nextLine();
 
                             if(option3.equalsIgnoreCase("yes")){
-
                                 checkOut();
+
+                                System.out.println("Here is your receipt: ");
+                                receipt();
                             }
 
                             System.out.println("Would you like to remove an item from the cart?");
@@ -87,7 +88,7 @@ public class Main {
 
                             if(option4.equalsIgnoreCase("yes")){
 
-                                removeItem();
+                                removeFromCart();
                             }
 
                         } else {
@@ -110,7 +111,7 @@ public class Main {
 
         }
         catch(Exception ex){
-            System.out.println("Let's try again . . . .");
+            System.out.println("Let's try again next time . . . .");
         }
 
     }
