@@ -67,14 +67,29 @@ public class Product {
     public void addProduct(Product product){
         productList.add(product);
     }
-    public void searchName(String Name){
 
-     /*   for(Product product : productList){
-            if(product )
+    public void searchName(String productName){
+        for(Product product : productList){
+            if(product.getProductName().equalsIgnoreCase(productName)){
+                System.out.println("Product found: " + product.getProductName());
+            }
         }
-*/
-
     }
 
+    public void searchPrice(double price){
+        for(Product product : productList){
+            if(product.getPrice() == price){
+                System.out.println("Product found: " + product.getProductName());
+            }
+        }
+    }
+
+    public void searchDepartment(String department){
+        for(Product product : productList){
+            if(product.getDepartment().equalsIgnoreCase(department)){
+                System.out.println("Product found: " + product.getProductName());
+            }
+        }
+    }
 
 }

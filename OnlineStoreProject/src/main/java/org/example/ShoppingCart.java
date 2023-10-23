@@ -18,27 +18,43 @@ public class ShoppingCart {
     }
 
 
-
     public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
 
-        public ShoppingCart() {
-            shoppingCart = new ArrayList<>();
-            scanner = new Scanner(System.in);
-        }
+    public ShoppingCart() {
+        shoppingCart = new ArrayList<>();
+        scanner = new Scanner(System.in);
+    }
 
-        public void addToCart(Product product) {
-            shoppingCart.add(product);
-            System.out.println(product.getProductName() + " added to the cart.");
-        }
+    public void addToCart(Product product) {
+        shoppingCart.add(product);
+        System.out.println(product.getProductName() + " added to the cart.");
+    }
 
-        public void removeFromCart() {
-            System.out.println("Enter the name of the product to remove: ");
-            String productName = scanner.nextLine();
-            boolean removed = false;
+    public void removeFromCart() {
+        System.out.println("Enter the name of the product to remove: ");
+        String productName = scanner.nextLine();
+        boolean removed = false;
+
+        for (Product product : shoppingCart) {
+            if (product.getProductName().equalsIgnoreCase(productName)) {
+                shoppingCart.remove(product);
+                System.out.println(product.getProductName() + " removed from the cart.");
+                removed = true;
+                break;
+
+            }
+
+        }
+        if (!removed) {
+            System.out.println("Product not found in the cart.");
+        } else {
+            System.out.println("Invalid command. Returning to the home screen.");
+            System.exit(0);
         }
     }
+}
 
 
 
